@@ -1,4 +1,4 @@
-FILE = C-Programs/FCFC.c
+FILE = C-Programs/FCFS.c
 PROG = build/FCFS
 
 CC = gcc
