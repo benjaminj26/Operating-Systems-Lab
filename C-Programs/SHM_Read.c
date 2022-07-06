@@ -6,7 +6,6 @@
 
 int main()
 {
-	getchar();
 	int i;
 	void *shared_memory;
 	char buff[100];
@@ -16,6 +15,5 @@ int main()
 	shared_memory=shmat(shmid,NULL,0);
 	printf("Process attached at %p\n",shared_memory);
 	printf("Data read from shared memory is : %s\n",(char *)shared_memory);
-	getchar();
 	return 0;
 }

@@ -5,13 +5,13 @@
 #include<fcntl.h>
 #include<stdlib.h>
 
-int main(void)
+int main()
 
 {
 	char *path,path1[10]; 
 	struct stat *nfile;
 	nfile=(struct stat *) malloc (sizeof(struct stat));
-	printf("enter name of file whose statistics has to be displayed: ");
+	printf("Enter name of file whose statistics has to be displayed: ");
 	scanf("%s",path1);
 	stat(path1,nfile);
 	printf("user id %u\n", nfile->st_uid);

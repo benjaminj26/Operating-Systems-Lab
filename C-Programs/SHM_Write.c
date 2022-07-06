@@ -18,6 +18,5 @@ int main()
 	read(0,buff,100);
 	strcpy(shared_memory,buff);
 	printf("You wrote : %s\n",(char *)shared_memory);
-	getchar();
 	return 0;
 }

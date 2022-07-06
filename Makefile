@@ -1,5 +1,5 @@
-FILE = C-Programs/FCFS.c
-PROG = build/FCFS
+FILE = C-Programs/Fork.c
+PROG = build/Fork
 
 CC = gcc
 CFLAGS = -Wall -o

@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<unistd.h>
 #include<dirent.h>
-void main()
+int main()
 {
 	DIR *d;
 	struct dirent *de;
@@ -11,4 +11,5 @@ void main()
 		printf("%s ",de->d_name);
 	}
 	printf("\n");
+	return 0;
 }
