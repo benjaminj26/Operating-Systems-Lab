@@ -1,5 +1,5 @@
-FILE = C-Programs/Fork.c
-PROG = build/Fork
+FILE = C-Programs/SJF.c
+PROG = C-Programs/build/SJF
 
 CC = gcc
 CFLAGS = -Wall -o

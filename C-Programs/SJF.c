@@ -1,5 +1,6 @@
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 struct Process
 {
@@ -9,7 +10,7 @@ struct Process
 	int turn_around_time;
 };
 
-void bubble_sort(struct Process *processes, int size)
+void insertion_sort(struct Process *processes, int size)
 {
     for(int i=1; i<size; ++i)
     {
@@ -30,8 +31,8 @@ void display_results(struct Process *processes, int size)
 	{
 		printf("%d\t\t %d\t\t %d\t\t %d\n", processes[i].process_id, processes[i].burst_time, processes[i].waiting_time, processes[i].turn_around_time);
 	}
-	int avg_waiting_time = 0;
-	int avg_turn_around_time = 0;
+	float avg_waiting_time = 0;
+	float avg_turn_around_time = 0;
 	for(int i=0; i<size; ++i)
 	{
 		avg_waiting_time += processes[i].waiting_time;
@@ -41,8 +42,8 @@ void display_results(struct Process *processes, int size)
 	avg_waiting_time /= size;
 	avg_turn_around_time /= size;
 	
-	printf("Average Waiting Time = %d\n", avg_waiting_time);
-	printf("Average Turn Around Time = %d\n", avg_turn_around_time);
+	printf("Average Waiting Time = %f\n", avg_waiting_time);
+	printf("Average Turn Around Time = %f\n", avg_turn_around_time);
 }
 
 void sjf(struct Process *processes, int size)
@@ -53,16 +54,17 @@ void sjf(struct Process *processes, int size)
 	{
 		sorted[i] = processes[i];
 	}
-	display_results(sorted, size);
-	bubble_sort(sorted, size);
+	// memmove(sorted, processes, size*sizeof(struct Process));
+	// display_results(sorted, size);
+	insertion_sort(sorted, size);
 	
 	for(int i=0; i<size; ++i)
 	{
 		for(int j=i+1; j<size; ++j)
 		{
-			processes[j].waiting_time += processes[i].burst_time;
+			sorted[j].waiting_time += sorted[i].burst_time;
 		}
-		processes[i].turn_around_time = processes[i].waiting_time + processes[i].burst_time;
+		sorted[i].turn_around_time = sorted[i].waiting_time + sorted[i].burst_time;
 	}
 	
 	for(int i=0; i<size; ++i)
@@ -75,7 +77,7 @@ void sjf(struct Process *processes, int size)
 			}
 		}
 	}
-	//display_results(processes, size);
+	display_results(processes, size);
 	free(sorted);
 }
 
