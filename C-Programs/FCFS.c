@@ -14,8 +14,8 @@ void fcfs(struct Process *processes, int size)
 {
 	struct Process oldest;
 	int i,j;
-	int avg_waiting_time = 0;
-	int avg_turn_around_time = 0;
+	float avg_waiting_time = 0;
+	float avg_turn_around_time = 0;
 	
 	for(i=0; i<size; ++i)
 	{
@@ -44,8 +44,8 @@ void fcfs(struct Process *processes, int size)
 	{
 		printf("%d\t\t %d\t\t %d\t\t %d\t\t %d\n", i, processes[i].arrival_time, processes[i].burst_time, processes[i].waiting_time, processes[i].turn_around_time);
 	}
-	printf("Average Waiting Time = %d\n", avg_waiting_time);
-	printf("Average Turn Around Time = %d\n", avg_turn_around_time);
+	printf("Average Waiting Time = %f\n", avg_waiting_time);
+	printf("Average Turn Around Time = %f\n", avg_turn_around_time);
 }
 
 int main()
