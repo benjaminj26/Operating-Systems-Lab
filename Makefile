@@ -1,5 +1,5 @@
-FILE = C-Programs/SJF.c
-PROG = C-Programs/build/SJF
+FILE = C-Programs/Priority_Scheduling.c
+PROG = C-Programs/build/Priority_Scheduling
 
 CC = gcc
 CFLAGS = -Wall -o

@@ -49,13 +49,8 @@ void display_results(struct Process *processes, int size)
 void sjf(struct Process *processes, int size)
 {
 	struct Process *sorted = (struct Process *)calloc(size, sizeof(struct Process));
-	
-	for(int i=0; i<size; ++i)
-	{
-		sorted[i] = processes[i];
-	}
-	// memmove(sorted, processes, size*sizeof(struct Process));
-	// display_results(sorted, size);
+	//Copying the values structs of processes array to sorted array
+	memmove(sorted, processes, size*sizeof(struct Process));
 	insertion_sort(sorted, size);
 	
 	for(int i=0; i<size; ++i)
