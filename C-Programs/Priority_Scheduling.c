@@ -66,11 +66,22 @@ void priority_scheduling(struct Process *processes, unsigned size)
 	for(unsigned i=0; i<size; ++i)
 	{
 		unsigned highest = 0;
-		for(unsigned j=0; j<size; ++j)
+		for(unsigned j=highest+1; j<size; ++j)
 		{
 			if(processes[j].priority > processes[highest].priority && processes[j].status == pending)
 			{
 				highest = j;
+			}
+		}
+		if(highest == 0 && processes[highest].status == finished)
+		{
+			highest += 1;
+			for(unsigned j=highest+1; j<size; ++j)
+			{
+				if(processes[j].priority > processes[highest].priority && processes[j].status == pending)
+				{
+					highest = j;
+				}
 			}
 		}
 		for(unsigned j=0; j<size; ++j)
