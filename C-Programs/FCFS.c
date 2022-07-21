@@ -25,7 +25,14 @@ void fcfs(struct Process *processes, int size)
 		}
 		if(i != 0)
 		{
-			processes[i].waiting_time -= processes[i].arrival_time;
+			if(processes[i].arrival_time <= processes[i-1].turn_around_time)
+			{
+				processes[i].waiting_time -= processes[i].arrival_time;
+			}
+			else
+			{
+				processes[i].waiting_time -= processes[i].arrival_time - processes[i-1].turn_around_time;
+			}
 			processes[i].turn_around_time = processes[i-1].turn_around_time + processes[i].burst_time;
 		}
 		else
