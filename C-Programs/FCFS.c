@@ -19,25 +19,28 @@ void fcfs(struct Process *processes, int size)
 	
 	for(i=0; i<size; ++i)
 	{
-		for(j=i+1; j<size; ++j)
+		if(i == 0)
 		{
-			processes[j].waiting_time += processes[i].burst_time;
-		}
-		if(i != 0)
-		{
-			if(processes[i].arrival_time <= processes[i-1].turn_around_time)
-			{
-				processes[i].waiting_time -= processes[i].arrival_time;
-			}
-			else
-			{
-				processes[i].waiting_time -= processes[i].arrival_time - processes[i-1].turn_around_time;
-			}
-			processes[i].turn_around_time = processes[i-1].turn_around_time + processes[i].burst_time;
+			processes[i].turn_around_time = processes[i].arrival_time + processes[i].burst_time;
 		}
 		else
 		{
-			processes[i].turn_around_time = processes[i].waiting_time + processes[i].burst_time;
+			processes[i].turn_around_time = processes[i-1].turn_around_time + processes[i].burst_time;
+		}
+	}
+
+	for(int i=0; i<size; ++i)
+	{
+		for(int j=i+1; j<size; ++j)
+		{
+			if(processes[j].arrival_time < processes[i].turn_around_time)
+			{
+				processes[j].waiting_time += processes[i].turn_around_time;
+			}
+		}
+		if(processes[i].arrival_time < processes[i-1].turn_around_time)
+		{
+			processes[i].waiting_time -= processes[i].arrival_time;
 		}
 	}
 	
