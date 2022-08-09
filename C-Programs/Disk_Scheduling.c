@@ -19,7 +19,7 @@ void fcfs(int *positions, int len, int *current, int *total_distance)
 	}
 }
 
-void sjf(int *positions, int len, int *current, int *total_distance)
+void sstf(int *positions, int len, int *current, int *total_distance)
 {
 	*total_distance = 0;
 	
@@ -269,11 +269,11 @@ int main()
 		printf("=========Menu=========\n");
 		printf(
 			"1.FCFS\n"
-			"2.SJF\n"
+			"2.SSTF\n"
 			"3.Scan\n"
-			"4.C Scan\n"
+			"4.C-Scan\n"
 			"5.Look\n"
-			"6.C Look\n"
+			"6.C-Look\n"
 			"7.Exit\n"
 			"Enter your choice: "
 		);
@@ -293,7 +293,7 @@ int main()
 			case 2:
 			{
 				current_position = initial_position;
-				sjf(positions, len, &current_position, &total_distance);
+				sstf(positions, len, &current_position, &total_distance);
 				printf("Total Distance: %d\n", total_distance);
 				break;
 			}
@@ -305,7 +305,7 @@ int main()
 				scanf("%d", &total_cylinders);
 				current_position = initial_position;
 				scan(positions, len, &current_position, &total_distance, total_cylinders);
-				printf("Total Distabce: %d\n", total_distance);
+				printf("Total Distance: %d\n", total_distance);
 				break;
 			}
 
@@ -316,7 +316,7 @@ int main()
 				scanf("%d", &total_cylinders);
 				current_position = initial_position;
 				c_scan(positions, len, &current_position, &total_distance, total_cylinders);
-				printf("Total Distabce: %d\n", total_distance);
+				printf("Total Distance: %d\n", total_distance);
 				break;
 			}
 
@@ -327,7 +327,7 @@ int main()
 				scanf("%d", &total_cylinders);
 				current_position = initial_position;
 				look(positions, len, &current_position, &total_distance, total_cylinders);
-				printf("Total Distabce: %d\n", total_distance);
+				printf("Total Distance: %d\n", total_distance);
 				break;
 			}
 
@@ -338,7 +338,7 @@ int main()
 				scanf("%d", &total_cylinders);
 				current_position = initial_position;
 				c_look(positions, len, &current_position, &total_distance, total_cylinders);
-				printf("Total Distabce: %d\n", total_distance);
+				printf("Total Distance: %d\n", total_distance);
 				break;
 			}
 			
