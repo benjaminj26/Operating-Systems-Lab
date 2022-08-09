@@ -246,6 +246,7 @@ int main()
 				printf("Invalid Input!!!\n");
 			}
 		}
+		printf("\n");
 	}while(exit_status);
 	return 0;
 }

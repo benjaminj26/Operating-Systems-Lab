@@ -28,15 +28,15 @@ int main ()
 	int available[r_size];
 	int need[p_size][r_size];
 	
-	printf("========Enter the details========\n");
+	printf("\n========Enter the details========\n");
 	for(int i=0; i < p_size; ++i)
 	{
 		for(int j=0; j < r_size; ++j)
 		{
-			printf("Enter the instances of Resource%d allocated to process P%d: ", j, i);
+			printf("Enter the instances of Resource%d allocated to process P%d: ", j+1, i+1);
 			scanf("%d", &allocated[i][j]);
 			
-			printf("Enter the maximum instances of Resource%d required by process P%d: ", j, i);
+			printf("Enter the maximum instances of Resource%d required by process P%d: ", j+1, i+1);
 			scanf("%d", &max[i][j]);
 			need[i][j] = max[i][j] - allocated[i][j];
 			printf("\n");
@@ -45,8 +45,20 @@ int main ()
 	
 	for(int i=0; i<r_size; ++i)
 	{
-		printf("Enter the number of available instances of resource%d: ", i);
+		printf("Enter the number of available instances of resource%d: ", i+1);
 		scanf("%d", &available[i]);
+	}
+
+	printf("Need Matrix:\n");
+	printf("Process ID\t\tResources\n");
+	for(int i=0; i < p_size; ++i)
+	{
+		printf("Process_%d\t\t", i+1);
+		for(int j=0; j < r_size; ++j)
+		{
+			printf("%d  ", need[i][j]);
+		}
+		printf("\n");
 	}
 	
 	int finished[p_size];

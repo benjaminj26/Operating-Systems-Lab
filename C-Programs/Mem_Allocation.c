@@ -18,6 +18,7 @@ struct Process
 	int p_id;
 	int mem_requirement;
 	int allocated_block;
+	int remaining_size;
 	enum Status status;
 };
 
@@ -29,7 +30,7 @@ struct Block
 
 void read_processes(struct Process *processes, int proc_len)
 {
-	printf("========Processes========\n");
+	printf("\n========Processes========\n");
 	for(int i=0; i < proc_len; ++i)
 	{
 		processes[i].p_id = i+1;
@@ -41,7 +42,7 @@ void read_processes(struct Process *processes, int proc_len)
 
 void read_blocks(struct Block *blocks, int block_len)
 {
-	printf("========Memory Blocks========\n");
+	printf("\n========Memory Blocks========\n");
 	for(int i=0; i < block_len; ++i)
 	{
 		printf("Enter the size of block%d: ", i+1);
@@ -66,6 +67,7 @@ enum Result first_fit(struct Process *processes, int proc_len, struct Block *blo
 				{
 					blocks[j].remaining_size -= processes[i].mem_requirement;
 					processes[i].allocated_block = j;
+					processes[i].remaining_size = blocks[j].remaining_size;
 					processes[i].status = finished;
 					break;
 				}
@@ -113,6 +115,7 @@ enum Result best_fit(struct Process *processes, int proc_len, struct Block *bloc
 		}
 		
 		blocks[best_fit].remaining_size -= processes[i].mem_requirement;
+		processes[i].remaining_size = blocks[best_fit].remaining_size;
 		processes[i].allocated_block = best_fit;
 		processes[i].status = finished;
 	}
@@ -144,6 +147,7 @@ enum Result worst_fit(struct Process *processes, int proc_len, struct Block *blo
 		{
 			blocks[highest].remaining_size -= processes[i].mem_requirement;
 			processes[i].allocated_block = highest;
+			processes[i].remaining_size = blocks[highest].remaining_size;
 			processes[i].status = finished;
 		}
 	}
@@ -158,7 +162,7 @@ void display_results(struct Process *processes, int proc_len, struct Block *bloc
 		printf("%d\t\t\t", processes[i].p_id);
 		printf("%d\t\t\t", processes[i].mem_requirement);
 		printf("%d\t\t\t", processes[i].allocated_block+1);
-		printf("%d\n", blocks[processes[i].allocated_block].remaining_size);
+		printf("%d\n", processes[i].remaining_size);
 	}
 }
 
@@ -247,6 +251,7 @@ int main()
 				printf("Invalid Input\n");
 			}
 		}
+		printf("\n");
 	}while(flag == pending);
 	
 	return 0;
