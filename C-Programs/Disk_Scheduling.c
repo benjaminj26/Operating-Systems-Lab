@@ -258,11 +258,10 @@ int main()
 	{
 		scanf("%d", &positions[i]);
 	}
-	printf("Enter the initial position: ");
+	//For reading the initial position of the
+	//disk arm from the user
 	int initial_position, current_position;
-	scanf("%d", &initial_position);
 	int total_distance;
-	current_position = initial_position;
 	int exit_status = 1;
 	do
 	{
@@ -284,17 +283,21 @@ int main()
 		{
 			case 1:
 			{
+				printf("Enter the initial position: ");
+				scanf("%d", &initial_position);
 				current_position = initial_position;
 				fcfs(positions, len, &current_position, &total_distance);
-				printf("Total Distance: %d\n", total_distance);
+				printf("\nTotal Distance: %d\n", total_distance);
 				break;
 			}
 			
 			case 2:
 			{
+				printf("Enter the initial position: ");
+				scanf("%d", &initial_position);
 				current_position = initial_position;
 				sstf(positions, len, &current_position, &total_distance);
-				printf("Total Distance: %d\n", total_distance);
+				printf("\nTotal Distance: %d\n", total_distance);
 				break;
 			}
 
@@ -303,9 +306,17 @@ int main()
 				printf("Enter the total number of cylinders: ");
 				int total_cylinders;
 				scanf("%d", &total_cylinders);
+				printf("Enter the initial position: ");
+				scanf("%d", &initial_position);
+				while(initial_position >= total_cylinders)
+				{
+					printf("\nThe inital position should be less than the total number of cylinders\n");
+					printf("\nEnter the initial position: ");
+					scanf("%d", &initial_position);
+				}
 				current_position = initial_position;
 				scan(positions, len, &current_position, &total_distance, total_cylinders);
-				printf("Total Distance: %d\n", total_distance);
+				printf("\nTotal Distance: %d\n", total_distance);
 				break;
 			}
 
@@ -314,9 +325,17 @@ int main()
 				printf("Enter the total number of cylinders: ");
 				int total_cylinders;
 				scanf("%d", &total_cylinders);
+				printf("Enter the initial position: ");
+				scanf("%d", &initial_position);
+				while(initial_position >= total_cylinders)
+				{
+					printf("\nThe inital position should be less than the total number of cylinders\n");
+					printf("\nEnter the initial position: ");
+					scanf("%d", &initial_position);
+				}
 				current_position = initial_position;
 				c_scan(positions, len, &current_position, &total_distance, total_cylinders);
-				printf("Total Distance: %d\n", total_distance);
+				printf("\nTotal Distance: %d\n", total_distance);
 				break;
 			}
 
@@ -325,9 +344,17 @@ int main()
 				printf("Enter the total number of cylinders: ");
 				int total_cylinders;
 				scanf("%d", &total_cylinders);
+				printf("Enter the initial position: ");
+				scanf("%d", &initial_position);
+				while(initial_position >= total_cylinders)
+				{
+					printf("\nThe inital position should be less than the total number of cylinders\n");
+					printf("\nEnter the initial position: ");
+					scanf("%d", &initial_position);
+				}
 				current_position = initial_position;
 				look(positions, len, &current_position, &total_distance, total_cylinders);
-				printf("Total Distance: %d\n", total_distance);
+				printf("\nTotal Distance: %d\n", total_distance);
 				break;
 			}
 
@@ -336,9 +363,17 @@ int main()
 				printf("Enter the total number of cylinders: ");
 				int total_cylinders;
 				scanf("%d", &total_cylinders);
+				printf("Enter the initial position: ");
+				scanf("%d", &initial_position);
+				while(initial_position >= total_cylinders)
+				{
+					printf("\nThe inital position should be less than the total number of cylinders\n");
+					printf("\nEnter the initial position: ");
+					scanf("%d", &initial_position);
+				}
 				current_position = initial_position;
 				c_look(positions, len, &current_position, &total_distance, total_cylinders);
-				printf("Total Distance: %d\n", total_distance);
+				printf("\nTotal Distance: %d\n", total_distance);
 				break;
 			}
 			

@@ -1,5 +1,5 @@
-FILE = C-Programs/Priority_Scheduling.c
-PROG = C-Programs/build/Priority_Scheduling
+FILE = C-Programs/Disk_Scheduling.c
+PROG = C-Programs/build/Disk_Scheduling
 
 CC = gcc
 CFLAGS = -Wall -o
