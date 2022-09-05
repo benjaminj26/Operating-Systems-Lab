@@ -16,7 +16,7 @@ void fcfs(struct Process *processes, int size)
 	int i,j;
 	float avg_waiting_time = 0;
 	float avg_turn_around_time = 0;
-	
+
 	for(i=0; i<size; ++i)
 	{
 		if(i == 0)
@@ -43,16 +43,16 @@ void fcfs(struct Process *processes, int size)
 			processes[i].waiting_time -= processes[i].arrival_time;
 		}
 	}
-	
+
 	for(i=0; i<size; ++i)
 	{
 		avg_waiting_time += processes[i].waiting_time;
 		avg_turn_around_time += processes[i].turn_around_time;
 	}
-	
+
 	avg_waiting_time /= size;
 	avg_turn_around_time /= size;
-	
+
 	printf("\nProcess Number\t Arrival Time\t Burst Time\t Waiting Time\t Turn Around Time\n");
 	for(i=0; i<size; ++i)
 	{
@@ -68,15 +68,15 @@ int main()
 	int size;
 	scanf("%d", &size);
 	struct Process *processes = (struct Process *)calloc(size, sizeof(struct Process));
-	
+
 	for(int i=0; i<size; ++i)
 	{
 		printf("Enter the arrival time of process %d: ", i);
 		scanf("%d", &processes[i].arrival_time);
-		
+
 		printf("Enter the burst time of process %d: ", i);
 		scanf("%d", &processes[i].burst_time);
-		
+
 		processes[i].waiting_time = 0;
 		processes[i].turn_around_time = 0;
 	}

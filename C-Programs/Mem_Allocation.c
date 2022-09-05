@@ -97,7 +97,7 @@ enum Result best_fit(struct Process *processes, int proc_len, struct Block *bloc
 			{
 				if(best_fit == -1)
 				{
-					best_fit = j;				
+					best_fit = j;
 				}
 				else
 				{
@@ -113,7 +113,7 @@ enum Result best_fit(struct Process *processes, int proc_len, struct Block *bloc
 			printf("No memory block is big enough for Process%d\n", processes[i].p_id);
 			return error;
 		}
-		
+
 		blocks[best_fit].remaining_size -= processes[i].mem_requirement;
 		processes[i].remaining_size = blocks[best_fit].remaining_size;
 		processes[i].allocated_block = best_fit;
@@ -171,13 +171,13 @@ int main()
 	int proc_len, blk_len;
 	printf("Enter the number of processes: ");
 	scanf("%d", &proc_len);
-	
+
 	printf("Enter the number of memory blocks: ");
 	scanf("%d", &blk_len);
-	
+
 	struct Process processes[proc_len];
 	struct Block blocks[blk_len];
-	
+
 	read_processes(processes, proc_len);
 	read_blocks(blocks, blk_len);
 	enum Status flag = pending;
@@ -192,17 +192,17 @@ int main()
 		);
 		int choice;
 		scanf("%d", &choice);
-		
+
 		switch(choice)
 		{
 			case 1:
 			{
 				struct Block temp_blocks[blk_len];
 				struct Process temp_processes[proc_len];
-				
+
 				memmove(temp_processes, processes, proc_len * sizeof(struct Process));
 				memmove(temp_blocks, blocks, blk_len * sizeof(struct Block));
-				
+
 				enum Result result = first_fit(temp_processes, proc_len, temp_blocks, blk_len);
 				if(result == success)
 				{
@@ -210,12 +210,12 @@ int main()
 				}
 				break;
 			}
-			
+
 			case 2:
 			{
 				struct Block temp_blocks[blk_len];
 				struct Process temp_processes[proc_len];
-				
+
 				memmove(&temp_processes, &processes, proc_len * sizeof(struct Process));
 				memmove(&temp_blocks, &blocks, blk_len * sizeof(struct Block));
 				enum Result result = best_fit(temp_processes, proc_len, temp_blocks, blk_len);
@@ -225,12 +225,12 @@ int main()
 				}
 				break;
 			}
-			
+
 			case 3:
 			{
 				struct Block temp_blocks[blk_len];
 				struct Process temp_processes[proc_len];
-				
+
 				memmove(&temp_processes, &processes, proc_len * sizeof(struct Process));
 				memmove(&temp_blocks, &blocks, blk_len * sizeof(struct Block));
 				enum Result result = worst_fit(temp_processes, proc_len, temp_blocks, blk_len);
@@ -240,7 +240,7 @@ int main()
 				}
 				break;
 			}
-			
+
 			case 4:
 			{
 				flag = finished;
@@ -253,6 +253,6 @@ int main()
 		}
 		printf("\n");
 	}while(flag == pending);
-	
+
 	return 0;
 }

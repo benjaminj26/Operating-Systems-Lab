@@ -22,20 +22,20 @@ void fcfs(int *positions, int len, int *current, int *total_distance)
 void sstf(int *positions, int len, int *current, int *total_distance)
 {
 	*total_distance = 0;
-	
+
 	//Distance of each position from the current position
 	int distance[len];
-	
+
 	//Temporary array for storing the positions
 	int temp[len];
 	for(int i=0; i < len; ++i)
 	{
 		temp[i] = positions[i];
 	}
-	
+
 	for(int i=0; i < len; ++i)
 	{
-		//Initializing the distance of each position to -1 so that the 
+		//Initializing the distance of each position to -1 so that the
 		//distance is -1 for the positions that are already visited
 		//and thereby those distances will not be added to the total
 		//distance
@@ -114,7 +114,7 @@ void scan(int *positions, int len, int *current, int *total_distance, int total_
 		temp[i] = positions[i];
 	}
 	//Sorting the temp array of positions to make it easier for
-	//calculating the distance 
+	//calculating the distance
 	insertion_sort(temp, len);
 	if(*current <= temp[0])
 	{
@@ -127,7 +127,6 @@ void scan(int *positions, int len, int *current, int *total_distance, int total_
 		//Distance from end of the disk to the position at the other
 		//end of the disk
 		*total_distance += total_cylinders - 1 - temp[0];
-
 	}
 }
 
@@ -169,7 +168,7 @@ void c_scan(int *positions, int len, int *current, int *total_distance, int tota
 			}
 			else
 			{
-				//The index of the nearest postion to the current position 
+				//The index of the nearest postion to the current position
 				//which is before the current position
 				starting_index = i;
 			}
@@ -252,7 +251,7 @@ int main()
 	int len;
 	scanf("%d", &len);
 	int positions[len];
-	
+
 	printf("Enter %d positions:\n", len);
 	for(int i=0; i < len; ++i)
 	{
@@ -278,7 +277,7 @@ int main()
 		);
 		int option;
 		scanf("%d", &option);
-		
+
 		switch(option)
 		{
 			case 1:
@@ -290,7 +289,7 @@ int main()
 				printf("\nTotal Distance: %d\n", total_distance);
 				break;
 			}
-			
+
 			case 2:
 			{
 				printf("Enter the initial position: ");
@@ -376,13 +375,13 @@ int main()
 				printf("\nTotal Distance: %d\n", total_distance);
 				break;
 			}
-			
+
 			case 7:
 			{
 				exit_status = 0;
 				break;
 			}
-			
+
 			default:
 			{
 				printf("Invalid Input\n");
