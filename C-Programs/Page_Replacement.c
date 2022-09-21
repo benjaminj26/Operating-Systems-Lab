@@ -119,7 +119,7 @@ void optimal_replacement(int *pages, int len, int buffer_len)
 	printf("Miss ratio => %d:%d\n", page_miss, len);
 }
 
-void least_used_replacement(int *pages, int len, int buffer_len)
+void least_recently_used_replacement(int *pages, int len, int buffer_len)
 {
 	int page_hit = 0;
 	int page_miss = 0;
@@ -186,6 +186,70 @@ void least_used_replacement(int *pages, int len, int buffer_len)
 	printf("Miss ratio => %d:%d\n", page_miss, len);
 }
 
+void least_frequently_used_replacement(int *pages, int len, int buffer_len)
+{
+	int buffer[buffer_len];
+	int page_hit = 0, page_miss = 0;
+	for (int i=0; i < buffer_len; ++i)
+	{
+		buffer[i] = -1;
+	}
+
+	for (int i=0; i < len; ++i)
+	{
+		int flag = 0;
+
+		for(int j=0; j < buffer_len; ++j)
+		{
+			if(buffer[j] == pages[i])
+			{
+				flag = 1;
+				break;
+			}
+		}
+		if(flag == 0)
+		{
+			page_miss++;
+			int frequency[buffer_len];
+			for(int j=0; j < buffer_len; ++j)
+			{
+				frequency[j] = 0;
+			}
+			int least_frequent;
+
+			for(int j=0; j < buffer_len; ++j)
+			{
+				for(int k=0; k < i; ++k)
+				{
+					if(buffer[j] == pages[k])
+					{
+						frequency[j] += 1;
+					}
+				}
+			}
+			least_frequent = 0;
+			for(int j=0; j < buffer_len; ++j)
+			{
+				if(frequency[j] < frequency[least_frequent])
+				{
+					least_frequent = j;
+				}
+			}
+
+			buffer[least_frequent] = pages[i];
+		}
+		else
+		{
+			page_hit++;
+		}
+	}
+
+	printf("No of page hits => %d\n", page_hit);
+	printf("No of page misses => %d\n", page_miss);
+	printf("Hit ratio => %d:%d\n", page_hit, len);
+	printf("Miss ratio => %d:%d\n", page_miss, len);
+}
+
 int main()
 {
 	int len;
@@ -195,9 +259,7 @@ int main()
 	printf("Enter %d page numbers:\n", len);
 	for(int i=0; i<len; ++i)
 	{
-		printf("%d => ", i+1);
 		scanf("%d", &pages[i]);
-		printf("\n");
 	}
 	int buffer_len;
 	printf("Enter the size of the page buffer: ");
@@ -208,9 +270,10 @@ int main()
 	{
 		printf(
 			"1.FIFO\n"
-			"2.Optimal Replacement\n"
-			"3.Least Used Replacement\n"
-			"4.Exit\nEnter your choice: "
+			"2.Least Recently Used Replacement\n"
+			"3.Least Frequently Used Replacement\n"
+			"4.Optimal Replacement"
+			"5.Exit\nEnter your choice: "
 		);
 		int choice;
 		scanf("%d", &choice);
@@ -225,17 +288,23 @@ int main()
 
 			case 2:
 			{
-				optimal_replacement(pages, len, buffer_len);
+				least_recently_used_replacement(pages, len, buffer_len);
 				break;
 			}
 
 			case 3:
 			{
-				least_used_replacement(pages, len, buffer_len);
+				least_frequently_used_replacement(pages, len, buffer_len);
 				break;
 			}
 
 			case 4:
+			{
+				optimal_replacement(pages, len, buffer_len);
+				break;
+			}
+
+			case 5:
 			{
 				exit_status = 0;
 				break;
