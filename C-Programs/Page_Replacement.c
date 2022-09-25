@@ -12,6 +12,7 @@ void fifo_replacement(int *pages, int len, int buffer_len)
 		buffer[i] = -1;
 	}
 
+	printf("Contents of the frame buffer:\n");
 	for(int i=0; i<len; ++i)
 	{
 		int flag = 0;
@@ -40,9 +41,17 @@ void fifo_replacement(int *pages, int len, int buffer_len)
 		{
 			page_hit++;
 		}
+		for(int i=0; i < buffer_len; ++i)
+		{
+			if (buffer[i] != -1)
+			{
+				printf("%d ", buffer[i]);
+			}
+		}
+		printf("\n");
 	}
 
-	printf("No of page hits => %d\n", page_hit);
+	printf("\nNo of page hits => %d\n", page_hit);
 	printf("No of page misses => %d\n", page_miss);
 	printf("Hit ratio => %d:%d\n", page_hit, len);
 	printf("Miss ratio => %d:%d\n", page_miss, len);
@@ -59,6 +68,7 @@ void optimal_replacement(int *pages, int len, int buffer_len)
 		buffer[i] = -1;
 	}
 
+	printf("Contents of the frame buffer:\n");
 	for(int i=0; i<len; ++i)
 	{
 		int flag = 0;
@@ -73,47 +83,71 @@ void optimal_replacement(int *pages, int len, int buffer_len)
 
 		if(flag == 0)
 		{
-			page_miss++;
-			int adjacency[buffer_len];
-
-			for(int j=0; j < buffer_len; ++j)
+			int flag2 = 0;
+			for (int j=0; j < buffer_len; ++j)
 			{
-				adjacency[j] = 0;
-			}
-			int optimal;
-			for(int j=0; j < buffer_len; ++j)
-			{
-				for(int k=i+1; k < len; ++k)
+				if (buffer[j] == -1)
 				{
-					if(buffer[j] == pages[k])
-					{
-						adjacency[j] = k-i;
-						break;
-					}
-				}
-			}
-			optimal = 0;
-			for(int j=0; j < buffer_len; ++j)
-			{
-				if(adjacency[j] == 0)
-				{
-					optimal = j;
+					page_miss++;
+					buffer[j] = pages[i];
+					flag2 = 1;
 					break;
 				}
-				else if(adjacency[j] > adjacency[optimal])
-				{
-					optimal = j;
-				}
 			}
-			buffer[optimal] = pages[i];
+			if(flag2 == 0)
+			{
+				page_miss++;
+				int adjacency[buffer_len];
+
+				for(int j=0; j < buffer_len; ++j)
+				{
+					adjacency[j] = 0;
+				}
+				int optimal;
+				//To find the page that is fasthest away so that it can
+				//be replaced
+				for(int j=0; j < buffer_len; ++j)
+				{
+					for(int k=i+1; k < len; ++k)
+					{
+						if(buffer[j] == pages[k])
+						{
+							adjacency[j] = k-i;
+							break;
+						}
+					}
+				}
+				optimal = 0;
+				for(int j=0; j < buffer_len; ++j)
+				{
+					if(adjacency[j] == 0)
+					{
+						optimal = j;
+						break;
+					}
+					else if(adjacency[j] > adjacency[optimal])
+					{
+						optimal = j;
+					}
+				}
+				buffer[optimal] = pages[i];
+			}
 		}
 		else
 		{
 			page_hit++;
 		}
+		for(int i=0; i < buffer_len; ++i)
+		{
+			if (buffer[i] != -1)
+			{
+				printf("%d ", buffer[i]);
+			}
+		}
+		printf("\n");
 	}
 
-	printf("No of page hits => %d\n", page_hit);
+	printf("\nNo of page hits => %d\n", page_hit);
 	printf("No of page misses => %d\n", page_miss);
 	printf("Hit ratio => %d:%d\n", page_hit, len);
 	printf("Miss ratio => %d:%d\n", page_miss, len);
@@ -130,6 +164,7 @@ void least_recently_used_replacement(int *pages, int len, int buffer_len)
 		buffer[i] = -1;
 	}
 
+	printf("Contents of the frame buffer:\n");
 	for(int i=0; i < len; ++i)
 	{
 		int flag = 0;
@@ -178,9 +213,18 @@ void least_recently_used_replacement(int *pages, int len, int buffer_len)
 		{
 			page_hit++;
 		}
+
+		for(int i=0; i < buffer_len; ++i)
+		{
+			if (buffer[i] != -1)
+			{
+				printf("%d ", buffer[i]);
+			}
+		}
+		printf("\n");
 	}
 
-	printf("No of page hits => %d\n", page_hit);
+	printf("\nNo of page hits => %d\n", page_hit);
 	printf("No of page misses => %d\n", page_miss);
 	printf("Hit ratio => %d:%d\n", page_hit, len);
 	printf("Miss ratio => %d:%d\n", page_miss, len);
@@ -195,6 +239,7 @@ void least_frequently_used_replacement(int *pages, int len, int buffer_len)
 		buffer[i] = -1;
 	}
 
+	printf("Contents of the frame buffer:\n");
 	for (int i=0; i < len; ++i)
 	{
 		int flag = 0;
@@ -242,9 +287,18 @@ void least_frequently_used_replacement(int *pages, int len, int buffer_len)
 		{
 			page_hit++;
 		}
+
+		for(int i=0; i < buffer_len; ++i)
+		{
+			if (buffer[i] != -1)
+			{
+				printf("%d ", buffer[i]);
+			}
+		}
+		printf("\n");
 	}
 
-	printf("No of page hits => %d\n", page_hit);
+	printf("\nNo of page hits => %d\n", page_hit);
 	printf("No of page misses => %d\n", page_miss);
 	printf("Hit ratio => %d:%d\n", page_hit, len);
 	printf("Miss ratio => %d:%d\n", page_miss, len);
@@ -272,7 +326,7 @@ int main()
 			"1.FIFO\n"
 			"2.Least Recently Used Replacement\n"
 			"3.Least Frequently Used Replacement\n"
-			"4.Optimal Replacement"
+			"4.Optimal Replacement\n"
 			"5.Exit\nEnter your choice: "
 		);
 		int choice;
