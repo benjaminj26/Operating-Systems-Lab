@@ -63,22 +63,23 @@ void display_results(struct Process *processes, unsigned size)
 
 void priority_scheduling(struct Process *processes, unsigned size)
 {
+	int current_turn_around_time = 0;
 	for(unsigned i=0; i<size; ++i)
 	{
 		unsigned highest = 0;
 		for(unsigned j=highest+1; j<size; ++j)
 		{
-			if(processes[j].priority > processes[highest].priority && processes[j].status == pending)
+			if(processes[j].priority < processes[highest].priority && processes[j].status == pending)
 			{
 				highest = j;
 			}
 		}
-		if(highest == 0 && processes[highest].status == finished)
+		while (processes[highest].status == finished)
 		{
 			highest += 1;
 			for(unsigned j=highest+1; j<size; ++j)
 			{
-				if(processes[j].priority > processes[highest].priority && processes[j].status == pending)
+				if(processes[j].priority < processes[highest].priority && processes[j].status == pending)
 				{
 					highest = j;
 				}
@@ -91,12 +92,9 @@ void priority_scheduling(struct Process *processes, unsigned size)
 				processes[j].waiting_time += processes[highest].burst_time;
 			}
 		}
+		current_turn_around_time += processes[highest].burst_time;
 		processes[highest].status = finished;
-	}
-
-	for(unsigned i=0; i<size; ++i)
-	{
-		processes[i].turn_around_time = processes[i].waiting_time + processes[i].burst_time;
+		processes[highest].turn_around_time = current_turn_around_time;
 	}
 }
 
